@@ -16,6 +16,8 @@ struct BindingPower {
 
 constexpr int32_t GetNudRightBindingPower(lexer::TokenType type) {
   switch (type) {
+    case lexer::TokenType::LEFT_PARENTHESIS:
+      return 0;
     case lexer::TokenType::MINUS:
       return 30;
     default:
@@ -31,8 +33,6 @@ constexpr BindingPower GetLedBindingPower(lexer::TokenType type) {
     case lexer::TokenType::MULTIPLICATION:
     case lexer::TokenType::DIVISION:
       return {20, 20};
-    case lexer::TokenType::LEFT_PARENTHESIS:
-      return {40, 0};
     default:
       return {-1, -1};
   }

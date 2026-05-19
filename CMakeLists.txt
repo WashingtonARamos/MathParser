@@ -30,7 +30,6 @@ add_executable(math_parser main.cpp
         parser/misc_parse.h
         parser/binding_power.h
         parser/misc_parse.cpp
-        interpreter/grouping_node.h
         interpreter/multiplication_node.h
         interpreter/division_node.h)
 

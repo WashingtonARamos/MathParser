@@ -29,7 +29,7 @@ std::unique_ptr<AstNode> Parser::ParseExpression(int32_t caller_binding_power) {
 
   // Parse the first token using the NUD function associated with it
   auto nud_fn = nud_parse_fns.at(token.type);
-  auto left = nud_fn(*this, token);
+  auto expr = nud_fn(*this, token);
 
   // Peek at the upcoming token's binding power before looping
   auto [lbp, rbp] = GetLedBindingPower(current.type);
@@ -43,7 +43,7 @@ std::unique_ptr<AstNode> Parser::ParseExpression(int32_t caller_binding_power) {
 
     // Call the LED passing in the current token and the left operand
     // The lexer is now pointing at the token to the right of the operator
-    left = led_fn(*this, token, std::move(left));
+    expr = led_fn(*this, token, std::move(expr));
 
     // We gave a non-const Parser reference to led_fn, we expect it to have kept
     // parsing until it reached another token with lower binding power, so we
@@ -51,7 +51,7 @@ std::unique_ptr<AstNode> Parser::ParseExpression(int32_t caller_binding_power) {
     lbp = GetLedBindingPower(current.type).lbp;
   }
 
-  return left;
+  return expr;
 }
 
 void Parser::InitializeParseFns() {
