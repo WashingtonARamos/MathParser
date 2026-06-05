@@ -8,7 +8,7 @@
 namespace math_parser::lexer {
 
 struct Lexer {
-  Lexer(std::string_view &string_view) : string_view(string_view) {}
+  Lexer(std::string_view string_view) : string_view(string_view) {}
   Token NextToken();
 
  private:
